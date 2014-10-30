@@ -37,6 +37,8 @@ I18nLazyLookup.prototype.processString = function (str, relativePath) {
   var pathChunks = relativePath.split('.')[0].split('/');
   var prefix;
 
+  // Remove app-name and templates/controllers/components prefix
+  pathChunks.shift();
   pathChunks.shift();
   prefix = pathChunks.join('.');
 
