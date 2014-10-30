@@ -43,43 +43,24 @@ I18nLazyLookup.prototype.processString = function (str, relativePath) {
   prefix = pathChunks.join('.');
 
   if (extension === 'js') {
-    return this.processControllers(str, prefix);
+    return this.processLazyLookup(str, prefix, '[a-z]Translation:\\s*[\'"](\\.[\\w-\\.]+)[\'"]');
   } else if (extension === 'hbs') {
-    return this.processTemplates(str, prefix);
+    str = this.processLazyLookup(str, prefix, '[a-z]Translation\\s*=\\s*[\'"](\\.[\\w-\\.]+)[\'"]');
+    return this.processLazyLookup(str, prefix, '{{\\s*t\\s*[\'"](\\.[\\w-\\.]+)[\'"]');
   } else {
     return str;
   }
 };
 
-I18nLazyLookup.prototype.processControllers = function(str, prefix) {
-  var matches = str.match(/[a-z]Translation:\s*['"](\.[\w-\.]+)['"]/g) || [];
+I18nLazyLookup.prototype.processLazyLookup = function(str, prefix, regexp) {
+  var matches = str.match(new RegExp(regexp, 'g')) || [];
   var match;
   var matchedString;
   var finalString;
   var i18nKey;
 
   for (var i = 0; matches[i]; ++i) {
-    match = matches[i].match(/[a-z]Translation:\s*['"](\.[\w-\.]+)['"]/);
-
-    matchedString = match[0];
-    i18nKey = prefix + match[1];
-    finalString = matchedString.replace(match[1], i18nKey);
-
-    str = str.replace(matchedString, finalString);
-  }
-
-  return str;
-};
-
-I18nLazyLookup.prototype.processTemplates = function(str, prefix) {
-  var matches = str.match(/{{\s*t\s*['"](\.[\w-\.]+)['"]/g) || [];
-  var match;
-  var matchedString;
-  var finalString;
-  var i18nKey;
-
-  for (var i = 0; matches[i]; ++i) {
-    match = matches[i].match(/{{\s*t\s*['"](\.[\w-\.]+)['"]/);
+    match = matches[i].match(new RegExp(regexp));
 
     matchedString = match[0];
     i18nKey = prefix + match[1];

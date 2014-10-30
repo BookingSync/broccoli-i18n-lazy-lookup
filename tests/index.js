@@ -82,4 +82,25 @@ describe('broccoli-i18n-lazy-lookup', function() {
       expect(actual).to.equal(expected);
     });
   })
+
+  it('can use lazy lookup on Translation attributes in nested handlebar templates', function() {
+    expect(1);
+
+    var sourcePath = 'tests/fixtures/dummy';
+    var tree = replace(sourcePath);
+
+    builder = new broccoli.Builder(tree);
+    return builder.build().then(function(dir) {
+      var actual = fs.readFileSync(dir + '/app/templates/posts/template-with-select.hbs',
+        { encoding: 'utf8'});
+      var expected = '{{input author as="select"\n' +
+                     '    collection="controller.authors"\n' +
+                     '    selection="controller.post.author"\n' +
+                     '    optionLabelPath="content.name"\n' +
+                     '    promptTranslation="posts.template-with-select.select_author"\n' +
+                     '  }}\n';
+
+      expect(actual).to.equal(expected);
+    });
+  })
 });
