@@ -52,12 +52,15 @@ I18nLazyLookup.prototype.processString = function (str, relativePath) {
 };
 
 I18nLazyLookup.prototype.processControllers = function(str, prefix) {
-  var match = str.match(/[a-z]Translation:\s*['"](\.[\w-\.]+)['"]/);
+  var matches = str.match(/[a-z]Translation:\s*['"](\.[\w-\.]+)['"]/g) || [];
+  var match;
   var matchedString;
   var finalString;
   var i18nKey;
 
-  if (match) {
+  for (var i = 0; matches[i]; ++i) {
+    match = matches[i].match(/[a-z]Translation:\s*['"](\.[\w-\.]+)['"]/);
+
     matchedString = match[0];
     i18nKey = prefix + match[1];
     finalString = matchedString.replace(match[1], i18nKey);
@@ -69,12 +72,15 @@ I18nLazyLookup.prototype.processControllers = function(str, prefix) {
 };
 
 I18nLazyLookup.prototype.processTemplates = function(str, prefix) {
-  var match = str.match(/{{\s*t\s*['"](\.[\w-\.]+)['"]/);
+  var matches = str.match(/{{\s*t\s*['"](\.[\w-\.]+)['"]/g) || [];
+  var match;
   var matchedString;
   var finalString;
   var i18nKey;
 
-  if (match) {
+  for (var i = 0; matches[i]; ++i) {
+    match = matches[i].match(/{{\s*t\s*['"](\.[\w-\.]+)['"]/);
+
     matchedString = match[0];
     i18nKey = prefix + match[1];
     finalString = matchedString.replace(match[1], i18nKey);
