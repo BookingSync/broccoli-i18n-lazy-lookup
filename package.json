@@ -1,6 +1,6 @@
 {
   "name": "broccoli-i18n-lazy-lookup",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Broccoli plugin to handle I18n lazy lookup.",
   "main": "index.js",
   "author": "Sebastien Grosjean",
