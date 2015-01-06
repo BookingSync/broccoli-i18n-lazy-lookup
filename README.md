@@ -55,6 +55,16 @@ will get converted to:
   }}
 ```
 
+In partial templates, the prefixing dash will be ignored when generating the translation key, so within `app/templates/post/-form.hbs`
+```hbs
+{{t '.submit'}}
+```
+
+will get converted to:
+```hbs
+{{t 'posts.form.submit'}}
+```
+
 ## Installation
 
 ```shell

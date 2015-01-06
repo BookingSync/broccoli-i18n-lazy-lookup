@@ -103,4 +103,20 @@ describe('broccoli-i18n-lazy-lookup', function() {
       expect(actual).to.equal(expected);
     });
   })
+
+  it('ignores the initial dash in dash prefixed partial templates', function() {
+    expect(1);
+
+    var sourcePath = 'tests/fixtures/dummy';
+    var tree = replace(sourcePath);
+
+    builder = new broccoli.Builder(tree);
+    return builder.build().then(function(dir) {
+      var actual = fs.readFileSync(dir + '/app/templates/-partial-dash-prefixed.hbs',
+        { encoding: 'utf8'});
+      var expected = '<h1>{{t \'partial-dash-prefixed.lazy_lookup\'}}</h1>\n';
+
+      expect(actual).to.equal(expected);
+    });
+  })
 });

@@ -40,6 +40,12 @@ I18nLazyLookup.prototype.processString = function (str, relativePath) {
   // Remove app-name and templates/controllers/components prefix
   pathChunks.shift();
   pathChunks.shift();
+
+  // Ignore dash prefix for partial templates
+  if (pathChunks[pathChunks.length - 1].charAt(0) === "-") {
+    pathChunks[pathChunks.length - 1] = pathChunks[pathChunks.length - 1].substring(1);
+  }
+
   prefix = pathChunks.join('.');
 
   if (extension === 'js') {
