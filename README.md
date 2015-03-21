@@ -4,7 +4,7 @@
 
 ## Summary
 
-Broccoli's I18n Lazy Lookup is made to add support for lazy lookup in Ember I18n. This Broccoli filter is best used with [ember-cli-i18n-lazy-lookup](https://www.github.com/BookingSync/ember-cli-i18n-lazy-lookup).
+Broccoli's I18n Lazy Lookup is made to add support for lazy lookup in [Ember I18n](https://github.com/jamesarosen/ember-i18n). This Broccoli filter is best used with [ember-cli-i18n-lazy-lookup](https://www.github.com/BookingSync/ember-cli-i18n-lazy-lookup).
 
 The concept is to automatically prefix your I18n key using the current file path.
 To do so, start your translation key by a `.` and it will replaced by the current file path.
